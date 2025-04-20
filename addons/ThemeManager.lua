@@ -244,6 +244,11 @@ local ThemeManager = {} do
 		self:CreateThemeManager(groupbox)
 	end
 
+	function ThemeManager:ApplyToTabbox(tabbox)
+		assert(self.Library, 'Must set ThemeManager.Library first!')	
+		self:CreateThemeManager(tabbox)
+	end
+
 	ThemeManager:BuildFolderTree()
 end
 
