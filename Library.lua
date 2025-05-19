@@ -897,8 +897,8 @@ do
             ColorPicker:Display();
         end;
 
-        SatVibMap.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        SatVibMap.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
                     local MinX = SatVibMap.AbsolutePosition.X;
                     local MaxX = MinX + SatVibMap.AbsoluteSize.X;
@@ -919,8 +919,8 @@ do
             end;
         end);
 
-        HueSelectorInner.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        HueSelectorInner.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
                     local MinY = HueSelectorInner.AbsolutePosition.Y;
                     local MaxY = MinY + HueSelectorInner.AbsoluteSize.Y;
@@ -936,8 +936,8 @@ do
             end;
         end);
 
-        DisplayFrame.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
+        DisplayFrame.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() and not gpe then
                 if PickerFrameOuter.Visible then
                     ColorPicker:Hide()
                 else
@@ -970,8 +970,8 @@ do
             end);
         end;
 
-        Library:GiveSignal(InputService.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        Library:GiveSignal(InputService.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 local AbsPos, AbsSize = PickerFrameOuter.AbsolutePosition, PickerFrameOuter.AbsoluteSize;
 
                 if Mouse.X < AbsPos.X or Mouse.X > AbsPos.X + AbsSize.X
@@ -1252,8 +1252,10 @@ do
                 wait(0.2);
 
                 local Event;
-                Event = InputService.InputBegan:Connect(function(Input)
+                Event = InputService.InputBegan:Connect(function(Input, gpe)
                     local Key;
+
+                    if gpe then return end
 
                     if Input.UserInputType == Enum.UserInputType.Keyboard then
                         Key = Input.KeyCode.Name;
@@ -1314,8 +1316,8 @@ do
             end;
         end))
 
-        Library:GiveSignal(InputService.InputEnded:Connect(function(Input)
-            if (not Picking) then
+        Library:GiveSignal(InputService.InputEnded:Connect(function(Input, gpe)
+            if (not Picking) and not gpe then
                 KeyPicker:Update();
             end;
         end))
@@ -2111,8 +2113,8 @@ do
             Library:SafeCallback(Slider.Changed, Slider.Value);
         end;
 
-        SliderInner.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
+        SliderInner.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() and not gpe then
                 local mPos = Mouse.X;
                 local gPos = Fill.Size.X.Offset;
                 local Diff = mPos - (Fill.AbsolutePosition.X + gPos);
@@ -2538,8 +2540,8 @@ do
             end;
         end);
 
-        InputService.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+        InputService.InputBegan:Connect(function(Input, gpe)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 local AbsPos, AbsSize = ListOuter.AbsolutePosition, ListOuter.AbsoluteSize;
 
                 if Mouse.X < AbsPos.X or Mouse.X > AbsPos.X + AbsSize.X
